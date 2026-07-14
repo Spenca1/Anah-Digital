@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Subscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  description    String
+  content        String
+  image          String
+  category       String
+  author         String
+  readTime       String
+  published      Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  imageAlt       String?
+  keywords       String?
+  seoDescription String?
+  seoTitle       String?
+  views          Int      @default(0)
+  claps          Int      @default(0)
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
