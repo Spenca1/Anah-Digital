@@ -3,6 +3,8 @@ import ViewsChart from "@/components/ViewsChart";
 import SubscribersChart from "@/components/SubscribersChart";
 import CategoryChart from "@/components/CategoryChart";
 import AnalyticsFilter from "@/components/AnalyticsFilter";
+import { redirect } from "next/navigation";
+import { getCurrentAdmin } from "@/lib/session";
 
 export default async function AnalyticsPage({
 
@@ -16,6 +18,11 @@ period?: string;
 
 }){
 
+    const admin = await getCurrentAdmin();
+
+if (!admin) {
+  redirect("/admin/login");
+}
 
 const { period } = await searchParams;
 

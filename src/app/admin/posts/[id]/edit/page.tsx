@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import EditPostForm from "./EditPostForm";
-
+import { redirect } from "next/navigation";
+import { getCurrentAdmin } from "@/lib/session";
 
 export default async function EditPostPage({
 params,
@@ -8,6 +9,11 @@ params,
 params: Promise<{id:string}>
 }){
 
+const admin = await getCurrentAdmin();
+
+if (!admin) {
+  redirect("/admin/login");
+}
 
 const {id}=await params;
 

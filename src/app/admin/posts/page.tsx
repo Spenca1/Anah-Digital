@@ -2,9 +2,17 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import DeletePostButton from "@/components/DeletePostButton";
 import Image from "next/image";
+import { redirect } from "next/navigation";
+import { getCurrentAdmin } from "@/lib/session";
 
 
 export default async function PostsPage(){
+
+const admin = await getCurrentAdmin();
+
+if (!admin) {
+  redirect("/admin/login");
+}
 
 
 const posts = await prisma.post.findMany({

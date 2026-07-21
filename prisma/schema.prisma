@@ -39,4 +39,27 @@ model Admin {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+
+  sessions  Session[]
+}
+model LoginAttempt {
+  id         String   @id @default(cuid())
+  ip         String   @unique
+  attempts   Int      @default(0)
+  blockedUntil DateTime?
+  updatedAt  DateTime @updatedAt
+}
+model Session {
+  id         String   @id @default(cuid())
+  tokenId    String   @unique
+  adminId    String
+
+  userAgent  String?
+  ipAddress  String?
+  lastActive DateTime @default(now())
+
+  createdAt  DateTime @default(now())
+  expiresAt  DateTime
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
 }

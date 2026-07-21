@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 
+
 export default function LoginPage(){
 
 
@@ -49,14 +50,20 @@ password,
 
 
 
-const data = await response.json();
+let data = {};
 
+try {
+  data = await response.json();
+} catch {
+  console.error("Response was not JSON");
+}
 
 
 if(!response.ok){
 
 setError(
-data.error || "Login failed"
+  (data as { error?: string }).error ??
+    "Login failed"
 );
 
 return;

@@ -49,6 +49,9 @@ export async function generateMetadata({
       ? post.image
       : fallbackImage;
 
+      const imageUrl = image.startsWith("http")
+  ? image
+  : `${siteConfig.url}${image}`;
 
 
   return {

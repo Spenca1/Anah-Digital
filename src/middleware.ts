@@ -1,17 +1,19 @@
-import { NextRequest, NextResponse } from "next/server";
-import { verifySession } from "@/lib/auth";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { verifyToken } from "@/lib/auth";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Allow access to login page
+  // Allow login page
   if (pathname === "/admin/login") {
     return NextResponse.next();
   }
 
-  // Protect all admin routes
+  // Protect admin routes
   if (pathname.startsWith("/admin")) {
-    const token = request.cookies.get("admin_session")?.value;
+    const token =
+      request.cookies.get("admin_session")?.value;
 
     if (!token) {
       return NextResponse.redirect(
@@ -19,9 +21,9 @@ export async function middleware(request: NextRequest) {
       );
     }
 
-    const session = await verifySession(token);
+    const payload = await verifyToken(token);
 
-    if (!session) {
+    if (!payload) {
       const response = NextResponse.redirect(
         new URL("/admin/login", request.url)
       );

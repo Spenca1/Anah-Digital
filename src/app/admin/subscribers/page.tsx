@@ -1,9 +1,17 @@
 import { prisma } from "@/lib/prisma";
 
 import DeleteSubscriberButton from "@/components/DeleteSubscriberButton";
+import { redirect } from "next/navigation";
+import { getCurrentAdmin } from "@/lib/session";
 
 
 export default async function SubscribersPage(){
+
+const admin = await getCurrentAdmin();
+
+if (!admin) {
+  redirect("/admin/login");
+}
 
 
 const subscribers = await prisma.subscriber.findMany({
