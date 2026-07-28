@@ -87,8 +87,6 @@ export const metadata: Metadata = {
   "Anah Digital",
 ],
 
-sitemap: `${siteConfig.url}/sitemap.xml`,
-
 
 authors: [
   {

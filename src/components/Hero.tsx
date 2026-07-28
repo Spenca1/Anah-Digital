@@ -1,28 +1,25 @@
 "use client";
+
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
-
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: {
     opacity: 0,
     y: 40,
   },
-
   show: {
     opacity: 1,
     y: 0,
-
     transition: {
       duration: 0.7,
-      ease: "easeOut",
+      ease: [0.25, 0.1, 0.25, 1], // replaces "easeOut"
     },
   },
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
-
   show: {
     transition: {
       staggerChildren: 0.18,
@@ -362,9 +359,9 @@ and grow online.
             scale: 1,
           }}
           transition={{
-            duration: 1,
-            ease: "easeOut",
-          }}
+  duration: 1,
+  ease: [0.25, 0.1, 0.25, 1],
+}}
           className="relative flex justify-center"
         >
 
@@ -387,9 +384,9 @@ initial={{ y: 0 }}
 animate={{ y: [-10, 10, -10] }}
 
 transition={{
-repeat: Infinity,
-duration: 5,
-ease: "easeInOut",
+  repeat: Infinity,
+  duration: 5,
+  ease: [0.42, 0, 0.58, 1],
 }}
 
 src="/images/mockup.png"
@@ -410,5 +407,17 @@ drop-shadow-[0_30px_60px_rgba(37,99,235,0.25)]
       </div>
 
     </section>
+
   );
 }
+
+
+
+
+
+
+
+
+
+
+

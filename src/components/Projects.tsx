@@ -21,8 +21,8 @@ const projects = [
       "Tailwind",
     ],
 
-    live: "Soon",
-    github: "Soon",
+    live: "",
+    github: "",
 
     featured: true,
   },
@@ -299,50 +299,69 @@ dark:text-blue-300
 
                 <div className="mt-8 flex gap-4">
 
-                  <a
-                    href={project.live}
-                    className="
-                    flex
-                    items-center
-                    gap-2
-                    rounded-xl
-                    bg-blue-600
-                    px-5
-                    py-3
-                    font-medium
-                    text-white
-                    transition
-                    hover:bg-blue-700
-                    "
-                  >
-                    <Globe size={18} />
+  {project.live && (
+    <a
+      href={project.live}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+      flex
+      items-center
+      gap-2
+      rounded-xl
+      bg-blue-600
+      px-5
+      py-3
+      font-medium
+      text-white
+      transition
+      hover:bg-blue-700
+      "
+    >
+      <Globe size={18} />
+      Live
+      <ArrowUpRight size={16} />
+    </a>
+  )}
 
-                    Live
+  {project.github && (
+    <a
+      href={project.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="
+      flex
+      items-center
+      gap-2
+      rounded-xl
+      border
+      px-5
+      py-3
+      transition
+      hover:border-blue-600
+      hover:text-blue-600
+      "
+    >
+      <FaGithub size={18} />
+      Code
+    </a>
+  )}
 
-                    <ArrowUpRight size={16} />
-                  </a>
+  {!project.live && !project.github && (
+    <span
+      className="
+      rounded-xl
+      border
+      px-5
+      py-3
+      text-gray-500
+      "
+    >
+      Coming Soon
+    </span>
+  )}
 
-                  <a
-                    href={project.github}
-                    className="
-                    flex
-                    items-center
-                    gap-2
-                    rounded-xl
-                    border
-                    px-5
-                    py-3
-                    transition
-                    hover:border-blue-600
-                    hover:text-blue-600
-                    "
-                  >
-                    <FaGithub size={18} />
-
-                    Code
-                  </a>
-
-                </div>
+</div>
 
               </div>
 <div
