@@ -10,7 +10,7 @@ const projects = [
   {
     title: "Food Ordering Platform",
     description:
-      "Modern restaurant ordering platform built with Next.js, Prisma and Stripe.",
+      "Full Stack CMS built to help businesses publish content, manage subscribers, track analytics and improve SEO.",
 
     image: "/images/Restaurant.png",
 
@@ -21,8 +21,8 @@ const projects = [
       "Tailwind",
     ],
 
-    live: "#",
-    github: "#",
+    live: "Soon",
+    github: "Soon",
 
     featured: true,
   },
@@ -40,8 +40,8 @@ const projects = [
       "Tailwind CSS",
     ],
 
-    live: "#",
-    github: "#",
+    live: "https://fanimation-website-two.vercel.app",
+    github: "https://github.com/Spenca1/fanimation-website-",
   },
 
   {
@@ -58,8 +58,8 @@ const projects = [
       "MySQL",
     ],
 
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
   },
 
   {
@@ -76,8 +76,8 @@ const projects = [
       "Tailwind",
     ],
 
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
   },
 
   {
@@ -93,8 +93,8 @@ const projects = [
       "MongoDB",
     ],
 
-    live: "#",
-    github: "#",
+    live: null,
+    github: null,
   },
 ];
 
@@ -135,8 +135,8 @@ export default function Projects() {
           </h2>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-500 dark:text-gray-400">
-            A collection of digital products, business solutions
-            and web applications I have designed and developed.
+            Every project below represents a real-world solution designed with scalability, 
+            performance and user experience in mind.
           </p>
 
         </motion.div>
@@ -415,7 +415,7 @@ Projects
 10+
 </h3>
 <p className="mt-2 text-gray-500">
-Happy Clients
+Business Solutions
 </p>
 </div>
 
@@ -433,7 +433,7 @@ Commitment
 24/7
 </h3>
 <p className="mt-2 text-gray-500">
-Support
+Modern Tech Stack
 </p>
 </div>
 

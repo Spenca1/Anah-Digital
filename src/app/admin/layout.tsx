@@ -71,6 +71,12 @@ export default function AdminLayout({
             Create Article
           </Link>
 
+          <Link href="/admin/messages" 
+          className="block transition hover:text-blue-600"
+          >
+          Messages
+          </Link>
+
           <Link
             href="/admin/analytics"
             className="block transition hover:text-blue-600"
@@ -83,6 +89,7 @@ export default function AdminLayout({
         <div className="pt-10 space-y-4">
   <AdminThemeToggle />
   <LogoutButton />
+  
 </div>
 
       </aside>

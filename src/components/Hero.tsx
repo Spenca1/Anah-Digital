@@ -43,7 +43,19 @@ export default function Hero() {
         bg-[radial-gradient(circle_at_top_right,#2563eb22,transparent_40%)]
         "
       />
-
+ <div
+className="
+absolute
+left-0
+top-40
+h-80
+w-80
+rounded-full
+bg-blue-500/10
+blur-[120px]
+-translate-x-1/2
+"
+/>
       <div
         className="
         mx-auto
@@ -98,17 +110,31 @@ export default function Hero() {
 
 </motion.div>
 
-          <motion.p
-            variants={fadeUp}
-            className="
-            font-semibold
-            uppercase
-            tracking-widest
-            text-blue-600
-            "
-          >
-            Digital Solutions For Nigerian Businesses
-          </motion.p>
+         <motion.p
+  variants={fadeUp}
+  className="
+  text-sm
+  font-semibold
+  uppercase
+  tracking-[0.3em]
+  text-blue-600
+  "
+>
+  FULL STACK SOFTWARE ENGINEER
+</motion.p>
+
+<motion.h2
+  variants={fadeUp}
+  className="
+  mt-4
+  text-xl
+  font-semibold
+  text-gray-700
+  dark:text-gray-300
+  "
+>
+  👋 Hi, I'm Anah Thankgod Uche.
+</motion.h2>
 
           <motion.h1
 variants={fadeUp}
@@ -122,11 +148,12 @@ lg:text-7xl
 "
 >
 
-Building digital
+I Build Modern Software
+
 
 <span className="block">
 
-experiences that
+That Helps 
 
 </span>
 
@@ -140,7 +167,7 @@ text-transparent
 "
 >
 
-grow businesses.
+Businesses Grow.
 
 </span>
 
@@ -166,6 +193,45 @@ attract customers,
 and grow online.
 
 </motion.p>
+
+<motion.div
+  variants={fadeUp}
+  className="
+  mt-8
+  flex
+  flex-wrap
+  gap-3
+"
+>
+  {[
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Prisma",
+    "PostgreSQL",
+    "Tailwind CSS",
+  ].map((tech) => (
+    <span
+      key={tech}
+      className="
+      rounded-full
+      border
+      border-blue-200
+      bg-blue-50
+      px-4
+      py-2
+      text-sm
+      font-medium
+      text-blue-700
+      dark:border-blue-900
+      dark:bg-blue-950/30
+      dark:text-blue-300
+      "
+    >
+      {tech}
+    </span>
+  ))}
+</motion.div>
 
           {/* Buttons */}
 
@@ -194,7 +260,7 @@ and grow online.
     cursor-pointer
     "
   >
-    Let's Work Together
+    Start a Project
   </motion.button>
 </Link>
 
@@ -219,7 +285,7 @@ and grow online.
     cursor-pointer
     "
   >
-    View Projects
+    Explore my work
   </motion.button>
 </Link>
 
@@ -244,7 +310,7 @@ and grow online.
               </h3>
 
               <p className="text-gray-500">
-                Projects Delivered
+                Projects built
               </p>
             </motion.div>
 
@@ -258,7 +324,7 @@ and grow online.
               </h3>
 
               <p className="text-gray-500">
-                Client Satisfaction
+                Commitment 
               </p>
             </motion.div>
 
@@ -267,18 +333,20 @@ and grow online.
                 y: -8,
               }}
             >
+              
               <h3 className="text-3xl font-bold text-blue-600">
                 3+
               </h3>
 
               <p className="text-gray-500">
-                Years Experience
+                Years Learning
               </p>
             </motion.div>
 
           </motion.div>
 
         </motion.div>
+        
 
         {/* RIGHT */}
 
@@ -332,8 +400,8 @@ className="
 relative
 w-full
 h-150
-max-w-lg
-drop-shadow-2xl
+max-w-xl
+drop-shadow-[0_30px_60px_rgba(37,99,235,0.25)]
 "
 />
 

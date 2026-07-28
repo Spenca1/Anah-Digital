@@ -110,10 +110,13 @@ export default function About() {
               variants={fadeUp}
               className="mt-4 text-5xl font-black leading-tight"
             >
-              Turning Ideas Into
+             Helping Businesses
+             
+              Grow Through
+
               <span className="text-blue-600">
                 {" "}
-                Digital Products
+                Modern Software.
               </span>
             </motion.h2>
 
@@ -127,18 +130,15 @@ export default function About() {
               dark:text-gray-400
               "
             >
-              I'm a passionate Full Stack Software Engineer
-              focused on building modern websites, scalable
-              web applications and business solutions that
-              help companies grow.
+             I'm a Full Stack Software Engineer passionate about building secure, 
+             scalable, and user-friendly digital products. 
+             From business websites to full-stack web and Mobile applications.
 
               <br />
               <br />
 
-              I enjoy transforming ideas into fast,
-              user-friendly digital experiences using
-              technologies like React, Next.js,
-              TypeScript, Prisma and modern UI design.
+             I enjoy transforming ideas into software that helps organizations grow
+              and creates meaningful experiences for users.
             </motion.p>
 
             <motion.div
@@ -180,7 +180,7 @@ export default function About() {
             >
 
               <a
-                href="/files/Anah-Uche-CV.pdf"
+                href="/files/Anah CV.pdf"
                 download
                 className="
                 inline-flex
@@ -199,7 +199,7 @@ export default function About() {
               >
                 <Download size={20} />
 
-                Download CV
+                Download Resume
               </a>
 
             
@@ -231,10 +231,14 @@ export default function About() {
 
           {/* RIGHT */}
 
-          <motion.div
-            variants={fadeUp}
-            className="relative"
-          >
+         <motion.div
+  variants={fadeUp}
+  className="
+  relative
+  mx-auto
+  max-w-md
+  lg:max-w-lg
+">
 
             <div
               className="
@@ -261,18 +265,27 @@ export default function About() {
               "
             >
 
-              <Image
-                src="/images/about-me.jpg"
-                alt="Anah Uche"
-                width={700}
-                height={800}
-                className="
-                rounded-[30px]
-                object-cover
-                "
-              />
+
+<Image
+  src="/images/about-me.jpg"
+  alt="Anah uche"
+  width={500}
+  height={650}
+  className="
+  w-full
+  rounded-[30px]
+  object-cover
+  "
+/>
+
 
             </div>
+            <h2 className="text-center mt-5 font-bold"> 
+  Anah Thankgod Uche.
+<br> 
+</br>
+Full Stack Software Engineer
+</h2>
 
           </motion.div>
 

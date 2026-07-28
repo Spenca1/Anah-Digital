@@ -1,5 +1,7 @@
 "use client";
 import Reveal from "@/components/Reveal";
+import { FaWhatsapp } from "react-icons/fa";
+import { useState } from "react";
 
 import { motion } from "framer-motion";
 import {
@@ -36,6 +38,55 @@ const stagger = {
 };
 
 export default function Contact() {
+  const [name, setName] = useState("");
+const [email, setEmail] = useState("");
+const [subject, setSubject] = useState("");
+const [message, setMessage] = useState("");
+
+const [loading, setLoading] = useState(false);
+const [success, setSuccess] = useState("");
+const [error, setError] = useState("");
+
+async function handleSubmit(
+  e: React.FormEvent
+) {
+  e.preventDefault();
+
+  setLoading(true);
+  setError("");
+  setSuccess("");
+
+  const response = await fetch("/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      subject,
+      message,
+    }),
+  });
+
+  const data = await response.json();
+
+  setLoading(false);
+
+  if (!response.ok) {
+    setError(data.error);
+    return;
+  }
+
+  setSuccess(
+    "Message sent successfully! I'll get back to you soon."
+  );
+
+  setName("");
+  setEmail("");
+  setSubject("");
+  setMessage("");
+}
   return (
     <Reveal delay={0.2}>
     <section
@@ -72,7 +123,7 @@ export default function Contact() {
             variants={fadeUp}
             className="mt-4 text-5xl font-black"
           >
-            Let's Build Something Amazing
+            Ready to Turn Your Idea Into Reality?
           </motion.h2>
 
           <motion.p
@@ -86,9 +137,9 @@ export default function Contact() {
             dark:text-gray-400
             "
           >
-            Have a project in mind, a job opportunity,
-            or simply want to connect? I'd love to hear
-            from you.
+            Whether you need a modern website, a custom web application,
+             or a complete business solution, I'd love to hear about your project 
+            and discuss how I can help bring it to life.
           </motion.p>
 
         </motion.div>
@@ -185,11 +236,20 @@ export default function Contact() {
                 </h3>
 
                 <p className="text-gray-500">
-                  Lagos, Nigeria
+                  Calabar, Nigeria
                 </p>
               </div>
 
             </motion.div>
+            <motion.div className="mt-8 rounded-2xl border p-5 bg-green-500/5">
+    <h3 className="font-semibold text-green-600">
+        🟢 Available for Freelance
+    </h3>
+
+    <p className="mt-2 text-gray-500">
+        Usually responds within 24 hours.
+    </p>
+</motion.div>
 
             <motion.div
               variants={fadeUp}
@@ -211,7 +271,22 @@ export default function Contact() {
               </a>
 
               <a
-                href="https://linkedin.com/"
+                href="https://wa.me/2348122641971" 
+                className="
+                rounded-full
+                border
+                p-4
+                transition
+                hover:bg-blue-600
+                hover:text-white
+                "
+              >
+                <FaWhatsapp size={20} />
+              </a>
+              
+
+              <a
+                href="https://www.linkedin.com/in/thankgod-anah-792ab5268/"
                 className="
                 rounded-full
                 border
@@ -230,12 +305,16 @@ export default function Contact() {
 
           {/* RIGHT */}
 
-          <motion.form
+<motion.form
+  onSubmit={handleSubmit}
             variants={stagger}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
             className="
+            bg-white/80
+            dark:bg-neutral-900/80
+            backdrop-blur-xl
             rounded-3xl
             border
             p-8
@@ -248,7 +327,9 @@ export default function Contact() {
 
               <input
                 type="text"
-                placeholder="Your Name"
+                placeholder="Full Name"
+                value={name}
+onChange={(e) => setName(e.target.value)}
                 className="
                 mb-5
                 w-full
@@ -258,6 +339,8 @@ export default function Contact() {
                 py-4
                 outline-none
                 focus:border-blue-600
+                focus:ring-4
+                focus:ring-blue-600/20
                 "
               />
 
@@ -268,6 +351,8 @@ export default function Contact() {
               <input
                 type="email"
                 placeholder="Email Address"
+                value={email}
+onChange={(e) => setEmail(e.target.value)}
                 className="
                 mb-5
                 w-full
@@ -286,7 +371,9 @@ export default function Contact() {
 
               <input
                 type="text"
-                placeholder="Subject"
+                placeholder="Project Type"
+                value={subject}
+onChange={(e) => setSubject(e.target.value)}
                 className="
                 mb-5
                 w-full
@@ -305,7 +392,9 @@ export default function Contact() {
 
               <textarea
                 rows={6}
-                placeholder="Tell me about your project..."
+                value={message}
+onChange={(e) => setMessage(e.target.value)}
+                placeholder="Describe your project, goals, timeline and any specific requirements..."
                 className="
                 w-full
                 rounded-xl
@@ -321,28 +410,42 @@ export default function Contact() {
             </motion.div>
 
             <motion.div variants={fadeUp}>
+              {error && (
+  <p className="mt-4 text-red-600">
+    {error}
+  </p>
+)}
+
+{success && (
+  <p className="mt-4 text-green-600">
+    {success}
+  </p>
+)}
 
               <button
-                className="
-                mt-8
-                inline-flex
-                items-center
-                gap-3
-                rounded-xl
-                bg-blue-600
-                px-8
-                py-4
-                font-semibold
-                text-white
-                transition
-                hover:-translate-y-1
-                hover:bg-blue-700
-                "
-              >
-                <Send size={18} />
+  disabled={loading}
+  className="
+  mt-8
+  inline-flex
+  items-center
+  gap-3
+  rounded-xl
+  bg-blue-600
+  px-8
+  py-4
+  font-semibold
+  text-white
+  transition
+  hover:-translate-y-1
+  hover:bg-blue-700
+  disabled:cursor-not-allowed
+  disabled:opacity-60
+  "
+>
+  <Send size={18} />
 
-                Send Message
-              </button>
+  {loading ? "Sending..." : "Send Message"}
+</button>
 
             </motion.div>
 

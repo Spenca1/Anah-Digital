@@ -150,7 +150,7 @@ export default function Footer() {
                   icon: <FaGithub size={20} />,
                 },
                 {
-                  href: "https://linkedin.com/",
+                  href: "https://www.linkedin.com/in/thankgod-anah-792ab5268/",
                   icon: <FaLinkedin size={20} />,
                 },
                 {
@@ -215,11 +215,15 @@ export default function Footer() {
           "
           >
             <p className="text-gray-500 dark:text-gray-400">
-              © {new Date().getFullYear()} Anah Digital. All rights reserved.
+              © {new Date().getFullYear()} Anah Uche. All rights reserved.
+            </p>
+
+            <p className="text-gray-500 dark:text-gray-400"> 
+              Built with Next.js & Tailwind CSS 
             </p>
 
             <p className="text-gray-500 dark:text-gray-400">
-              Built with Next.js & Tailwind CSS
+               Portfolio CMS <span className="mx-2 text-white">•</span> V1.0.0
             </p>
 
             <button
