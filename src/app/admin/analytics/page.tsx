@@ -160,8 +160,11 @@ createdAt:"asc",
 
 });
 
-const subscriberData = subscribers.map((subscriber,index)=>({
-
+const subscriberData = subscribers.map(
+  (
+    subscriber: (typeof subscribers)[number],
+    index: number
+  ) => ({
 name:
 new Date(
 subscriber.createdAt
