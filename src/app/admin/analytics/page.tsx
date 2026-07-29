@@ -5,6 +5,8 @@ import CategoryChart from "@/components/CategoryChart";
 import AnalyticsFilter from "@/components/AnalyticsFilter";
 import { redirect } from "next/navigation";
 import { getCurrentAdmin } from "@/lib/session";
+import type { Post } from "@prisma/client";
+
 
 export default async function AnalyticsPage({
 
@@ -69,9 +71,6 @@ now.getDate() - 30
 }
 
 
-
-
-
 if(period === "month"){
 
 startDate = new Date();
@@ -104,11 +103,11 @@ views:"desc",
 });
 
 
-const categoryMap:any = {};
+const categoryMap: Record<string, number> = {};
 
 
 
-posts.forEach((post)=>{
+posts.forEach((post: Post) => {
 
 if(!categoryMap[post.category]){
 
@@ -134,7 +133,7 @@ views:categoryMap[category],
 })
 );
 
-const chartData = posts.map((post)=>({
+const chartData = posts.map((post: Post) => ({
 
 name:post.title.slice(0,10),
 
@@ -176,25 +175,15 @@ subscribers:index + 1,
 }));
 
 
-const totalViews = posts.reduce(
-
-(total,post)=> total + post.views,
-
-0
-
-);
+const totalViews = posts.reduce((total, post: Post) => total + post.views, 0)
 
 
 
-const publishedPosts = posts.filter(
-(post)=>post.published
-);
+const publishedPosts = posts.filter((post: Post) => post.published)
 
 
 
-const draftPosts = posts.filter(
-(post)=>!post.published
-);
+const draftPosts = posts.filter((post: Post) => !post.published);
 
 
 
@@ -371,8 +360,8 @@ space-y-4
 
 {
 posts
-.slice(0,5)
-.map((post)=>(
+  .slice(0, 5)
+  .map((post: Post) => (
 
 
 <div
