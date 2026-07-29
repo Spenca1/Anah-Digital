@@ -81,26 +81,22 @@ now.getDate() - 30
 
 }
 
-const posts = await prisma.post.findMany({
+const posts: Awaited<ReturnType<typeof prisma.post.findMany>> =
+  await prisma.post.findMany({
+    where:
+      startDate
+        ? {
+            createdAt: {
+              gte: startDate,
+            },
+          }
+        : undefined,
 
-where:
+    orderBy: {
+      views: "desc",
+    },
+  });
 
-startDate
-?
-{
-createdAt:{
-gte:startDate,
-},
-}
-:
-undefined,
-
-
-orderBy:{
-views:"desc",
-},
-
-});
 
 
 const categoryMap: Record<string, number> = {};
@@ -132,6 +128,8 @@ views:categoryMap[category],
 
 })
 );
+
+
 
 const chartData = posts.map((post) => ({
 
