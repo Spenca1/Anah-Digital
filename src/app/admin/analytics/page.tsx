@@ -103,7 +103,7 @@ const categoryMap: Record<string, number> = {};
 
 
 
-posts.forEach((post) => {
+posts.forEach((post: (typeof posts)[number]) => {
 
 if(!categoryMap[post.category]){
 
@@ -131,7 +131,7 @@ views:categoryMap[category],
 
 
 
-const chartData = posts.map((post) => ({
+const chartData = posts.map((post: (typeof posts)[number]) => ({
 
 name:post.title.slice(0,10),
 
@@ -173,15 +173,22 @@ subscribers:index + 1,
 }));
 
 
-const totalViews = posts.reduce((total, post) => total + post.views, 0)
+const totalViews = posts.reduce(
+  (total: number, post: (typeof posts)[number]) => total + post.views,
+  0
+);
 
 
 
-const publishedPosts = posts.filter((post) => post.published)
+const publishedPosts = posts.filter(
+  (post: (typeof posts)[number]) => post.published
+);
 
 
 
-const draftPosts = posts.filter((post) => !post.published);
+const draftPosts = posts.filter(
+  (post: (typeof posts)[number]) => !post.published
+);
 
 
 
@@ -357,9 +364,7 @@ space-y-4
 
 
 {
-posts
-  .slice(0, 5)
-  .map((post) => (
+posts.slice(0, 5).map((post: (typeof posts)[number]) => (
 
 
 <div
