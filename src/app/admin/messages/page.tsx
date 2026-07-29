@@ -3,15 +3,14 @@ import MarkAsReadButton from "@/components/MarkAsReadButton";
 import DeleteMessageButton from "@/components/DeleteMessageButton";
 import Link from "next/link";
 
-
 export default async function MessagesPage() {
-  const messages: Awaited<
-  ReturnType<typeof prisma.contactMessage.findMany>
-> = await prisma.contactMessage.findMany({
-  orderBy: {
-    createdAt: "desc",
-  },
-});
+  const messages = await prisma.contactMessage.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  type Message = (typeof messages)[number];
 
   return (
     <div className="space-y-8">
@@ -32,7 +31,7 @@ export default async function MessagesPage() {
           </div>
         )}
 
-        {messages.map((message: (typeof messages)[number]) => (
+        {messages.map((message: Message) => (
           <div
             key={message.id}
             className="rounded-2xl border p-6"
@@ -48,32 +47,25 @@ export default async function MessagesPage() {
                 </p>
               </div>
 
+              {!message.isRead && (
+                <div className="flex items-center gap-3">
+                  <span
+                    className="
+                      rounded-full
+                      bg-blue-600
+                      px-3
+                      py-1
+                      text-sm
+                      text-white
+                    "
+                  >
+                    Unread
+                  </span>
 
-{!message.isRead && (
-  <div className="flex items-center gap-3">
-    <span
-      className="
-      rounded-full
-      bg-blue-600
-      px-3
-      py-1
-      text-sm
-      text-white
-      "
-    >
-      Unread
-    </span>
-
-    <MarkAsReadButton
-      id={message.id}
-    />
-  </div>
-)}
-
+                  <MarkAsReadButton id={message.id} />
+                </div>
+              )}
             </div>
-
-
-
 
             <h3 className="mt-6 font-semibold">
               {message.subject}
@@ -86,25 +78,24 @@ export default async function MessagesPage() {
             <p className="mt-6 text-sm text-gray-400">
               {message.createdAt.toLocaleString()}
             </p>
-            <div className="mt-6 flex justify-end">
-  <DeleteMessageButton
-    id={message.id}
-/>
-    <Link
-  href={`/admin/messages/${message.id}/reply`}
-  className="
-    rounded-lg
-    bg-green-600
-    px-4
-    py-2
-    text-white
-    hover:bg-green-700
-  "
->
-  Reply
-</Link>
-  
-</div>
+
+            <div className="mt-6 flex justify-end gap-3">
+              <DeleteMessageButton id={message.id} />
+
+              <Link
+                href={`/admin/messages/${message.id}/reply`}
+                className="
+                  rounded-lg
+                  bg-green-600
+                  px-4
+                  py-2
+                  text-white
+                  hover:bg-green-700
+                "
+              >
+                Reply
+              </Link>
+            </div>
           </div>
         ))}
       </div>
