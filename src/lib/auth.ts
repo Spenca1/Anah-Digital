@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
-import { randomUUID } from "crypto";
+import { v4 as uuid } from "uuid";
 import { prisma } from "@/lib/prisma";
 
 const secret = new TextEncoder().encode(
@@ -7,7 +7,7 @@ const secret = new TextEncoder().encode(
 );
 
 export async function createToken(adminId: string) {
-  const jti = randomUUID();
+  const jti = uuid();
 
   const token = await new SignJWT({
     adminId,
