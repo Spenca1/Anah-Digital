@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyToken } from "@/lib/auth";
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow login page
@@ -12,8 +12,7 @@ export async function middleware(request: NextRequest) {
 
   // Protect admin routes
   if (pathname.startsWith("/admin")) {
-    const token =
-      request.cookies.get("admin_session")?.value;
+    const token = request.cookies.get("admin_session")?.value;
 
     if (!token) {
       return NextResponse.redirect(

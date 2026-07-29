@@ -5,11 +5,13 @@ import Link from "next/link";
 
 
 export default async function MessagesPage() {
-  const messages = await prisma.contactMessage.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const messages: Awaited<
+  ReturnType<typeof prisma.contactMessage.findMany>
+> = await prisma.contactMessage.findMany({
+  orderBy: {
+    createdAt: "desc",
+  },
+});
 
   return (
     <div className="space-y-8">
@@ -30,7 +32,7 @@ export default async function MessagesPage() {
           </div>
         )}
 
-        {messages.map((message) => (
+        {messages.map((message: (typeof messages)[number]) => (
           <div
             key={message.id}
             className="rounded-2xl border p-6"
