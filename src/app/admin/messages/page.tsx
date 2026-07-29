@@ -31,8 +31,8 @@ export default async function MessagesPage() {
           </div>
         )}
 
-        {messages.map((message: Message) => (
-            
+        {messages.map((message) => (
+
           <div
             key={message.id}
             className="rounded-2xl border p-6"
