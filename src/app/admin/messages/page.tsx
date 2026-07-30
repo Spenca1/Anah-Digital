@@ -4,21 +4,18 @@ import DeleteMessageButton from "@/components/DeleteMessageButton";
 import Link from "next/link";
 
 export default async function MessagesPage() {
-  const messages = await prisma.contactMessage.findMany({
+  const messages: Awaited<
+    ReturnType<typeof prisma.contactMessage.findMany>
+  > = await prisma.contactMessage.findMany({
     orderBy: {
       createdAt: "desc",
     },
   });
 
-  type Message = (typeof messages)[number];
-
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold">
-          Contact Messages
-        </h1>
-
+        <h1 className="text-3xl font-bold">Contact Messages</h1>
         <p className="mt-2 text-gray-500">
           Messages received from your portfolio.
         </p>
@@ -31,35 +28,20 @@ export default async function MessagesPage() {
           </div>
         )}
 
-        {messages.map((message) => (
-
+        {messages.map((message: (typeof messages)[number]) => (
           <div
             key={message.id}
             className="rounded-2xl border p-6"
           >
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-semibold">
-                  {message.name}
-                </h2>
-
-                <p className="text-gray-500">
-                  {message.email}
-                </p>
+                <h2 className="text-xl font-semibold">{message.name}</h2>
+                <p className="text-gray-500">{message.email}</p>
               </div>
 
               {!message.isRead && (
                 <div className="flex items-center gap-3">
-                  <span
-                    className="
-                      rounded-full
-                      bg-blue-600
-                      px-3
-                      py-1
-                      text-sm
-                      text-white
-                    "
-                  >
+                  <span className="rounded-full bg-blue-600 px-3 py-1 text-sm text-white">
                     Unread
                   </span>
 
@@ -68,9 +50,7 @@ export default async function MessagesPage() {
               )}
             </div>
 
-            <h3 className="mt-6 font-semibold">
-              {message.subject}
-            </h3>
+            <h3 className="mt-6 font-semibold">{message.subject}</h3>
 
             <p className="mt-3 whitespace-pre-wrap text-gray-600">
               {message.message}
@@ -85,14 +65,7 @@ export default async function MessagesPage() {
 
               <Link
                 href={`/admin/messages/${message.id}/reply`}
-                className="
-                  rounded-lg
-                  bg-green-600
-                  px-4
-                  py-2
-                  text-white
-                  hover:bg-green-700
-                "
+                className="rounded-lg bg-green-600 px-4 py-2 text-white hover:bg-green-700"
               >
                 Reply
               </Link>
