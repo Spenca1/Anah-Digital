@@ -2,50 +2,43 @@ import AdminHeader from "@/components/AdminHeader";
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminPage() {
+  const posts: Awaited<
+    ReturnType<typeof prisma.post.findMany>
+  > = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
+  const publishedPosts = posts.filter(
+    (post: (typeof posts)[number]) => post.published
+  );
 
-const posts = await prisma.post.findMany({
+  const draftPosts = posts.filter(
+    (post: (typeof posts)[number]) => !post.published
+  );
 
-orderBy:{
-createdAt:"desc",
-},
+  const subscribers: Awaited<
+    ReturnType<typeof prisma.subscriber.findMany>
+  > = await prisma.subscriber.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
 
-});
+  const totalViews = posts.reduce(
+    (total, post: (typeof posts)[number]) => total + post.views,
+    0
+  );
 
-
-const publishedPosts = posts.filter(
-(post)=>post.published
-);
-
-
-const draftPosts = posts.filter(
-(post)=>!post.published
-);
-
-
-
-const subscribers = await prisma.subscriber.findMany({
-
-orderBy:{
-createdAt:"desc",
-},
-
-});
-
-
-
-const totalViews = posts.reduce(
-(total,post)=> total + post.views,
-0
-);
-
-
-
-const topArticles = [...publishedPosts]
-.sort(
-(a,b)=>b.views-a.views
-)
-.slice(0,5);
+  const topArticles = [...publishedPosts]
+    .sort(
+      (
+        a: (typeof posts)[number],
+        b: (typeof posts)[number]
+      ) => b.views - a.views
+    )
+    .slice(0, 5);
 
 
 
@@ -263,11 +256,10 @@ Top Articles
 
 
 {
-topArticles.map((post)=>(
+topArticles.map((post: (typeof posts)[number]) => (
 
 
 <div
-
 key={post.id}
 
 className="
@@ -339,16 +331,14 @@ mt-6
 space-y-4
 ">
 
-
 {
 subscribers
 .slice(0,5)
-.map((subscriber)=>(
-
+.map((subscriber: (typeof subscribers)[number]) => (
 
 <div
-
 key={subscriber.id}
+
 
 className="
 rounded-xl
