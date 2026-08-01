@@ -5,7 +5,11 @@ import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import StructuredData from "./structured-data";
 import { siteConfig } from "@/lib/site";
+import type { Viewport } from "next";
 
+export const viewport: Viewport = {
+  themeColor: "#2563eb",
+};
 
 
 
@@ -16,8 +20,10 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-
- metadataBase: new URL(siteConfig.url),
+metadataBase: new URL(
+  process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://anahdigital.com"
+),
 
   title: {
     default:
@@ -97,7 +103,7 @@ creator: "Anah Thankgod Uchechukwu",
 
 publisher: "Anah Digital",
 
-themeColor: "#2563eb",
+
 
 alternates: {
   canonical: "https://anahdigital.com",
