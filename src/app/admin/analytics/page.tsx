@@ -176,8 +176,8 @@ subscribers:index + 1,
 }));
 
 
-const totalViews = posts.reduce<number>(
-  (total, post) => total + post.views,
+const totalViews = posts.reduce(
+  (total: number, post) => total + post.views,
   0
 );
 
