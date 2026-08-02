@@ -205,7 +205,7 @@ text-4xl
 font-bold
 ">
 
-Analytics
+Analytics Dashboard
 
 </h1>
 

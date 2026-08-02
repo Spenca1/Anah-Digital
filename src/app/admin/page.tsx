@@ -27,8 +27,8 @@ export default async function AdminPage() {
   });
 
   const totalViews = posts.reduce(
-  (total, post) => total + post.views,
-  0 as number
+  (total: number, post) => total + post.views,
+  0
 );
 
   const topArticles = [...publishedPosts]
