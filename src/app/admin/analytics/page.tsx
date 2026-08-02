@@ -176,8 +176,10 @@ subscribers:index + 1,
 }));
 
 
+type Post = (typeof posts)[number];
+
 const totalViews = posts.reduce(
-  (total: number, post) => total + post.views,
+  (total: number, post: Post) => total + post.views,
   0
 );
 
