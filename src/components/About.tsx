@@ -266,16 +266,10 @@ export default function About() {
             >
 
 
-<Image
-  src="/images/about-me.jpg"
-  alt="Anah uche"
-  width={500}
-  height={650}
-  className="
-  w-full
-  rounded-[30px]
-  object-cover
-  "
+<img
+  src="/images/About-me.jpg"
+  alt="Anah Uche"
+  className="w-full rounded-[30px] object-cover"
 />
 
 
