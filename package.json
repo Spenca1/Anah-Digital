@@ -2,13 +2,15 @@
   "name": "my-blog",
   "version": "0.1.0",
   "private": true,
+
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "seed": "tsx prisma/seed.ts"
-  },
+  "dev": "next dev",
+  "build": "prisma generate && next build",
+  "start": "next start",
+  "lint": "eslint",
+  "seed": "tsx prisma/seed.ts"
+},
+
   "dependencies": {
     "@next/third-parties": "^16.2.9",
     "@prisma/client": "^6.19.3",

@@ -3,12 +3,8 @@ import LogoutSessionButton from "@/components/LogoutSessionButton";
 import LogoutOtherDevicesButton from "@/components/LogoutOtherDevicesButton";
 import DeviceInfo from "@/components/DeviceInfo";
 
-type Session = Awaited<
-  ReturnType<typeof prisma.session.findMany>
->[number];
-
 export default async function SessionsPage() {
-  const sessions: Session[] = await prisma.session.findMany({
+  const sessions = await prisma.session.findMany({
     orderBy: {
       lastActive: "desc",
     },
@@ -34,7 +30,7 @@ export default async function SessionsPage() {
         </button>
       </div>
 
-      {sessions.map((session: Session) => (
+      {sessions.map((session) => (
         <div
           key={session.id}
           className="rounded-2xl border bg-white p-6 shadow-sm transition hover:shadow-md"
@@ -44,11 +40,14 @@ export default async function SessionsPage() {
           </h2>
 
           <p className="mt-3">
-            <DeviceInfo userAgent={session.userAgent} />
+            <DeviceInfo
+              userAgent={session.userAgent}
+            />
           </p>
 
           <p className="mt-2">
-            🌍 IP Address: {session.ipAddress ?? "Unknown"}
+            🌍 IP Address:{" "}
+            {session.ipAddress ?? "Unknown"}
           </p>
 
           <p className="mt-2">
