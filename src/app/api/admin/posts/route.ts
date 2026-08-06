@@ -94,21 +94,17 @@ status:201
 
 }
 
-catch(error){
+catch (error) {
+  console.error("UPLOAD ERROR:", error);
 
-console.error("CREATE POST ERROR:", error);
-
-
-return NextResponse.json(
-{
-success:false,
-message:String(error), 
-},
-{
-status:500
+  return NextResponse.json(
+    {
+      error: String(error),
+    },
+    {
+      status: 500,
+    }
+  );
 }
-);
 
-
-}
 }
