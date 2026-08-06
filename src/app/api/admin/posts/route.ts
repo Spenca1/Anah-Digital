@@ -7,6 +7,9 @@ export async function POST(request: Request) {
 
 try {
 const body = await request.json();
+console.log(body);
+console.log("BODY RECEIVED:");
+
 
 function createUniqueSlug(slug:string){
 
@@ -94,8 +97,13 @@ status:201
 
 }
 
+
 catch (error) {
-  console.error("UPLOAD ERROR:", error);
+  console.error("CREATE POST ERROR:");
+console.error(error);
+
+console.log("BODY RECEIVED:");
+
 
   return NextResponse.json(
     {

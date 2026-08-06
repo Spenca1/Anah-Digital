@@ -54,139 +54,74 @@ published:false,
 
 });
 
-
-
-
-
 function handleChange(
-e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-){
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+) {
+  const { name, value } = e.target;
 
-const {name,value}=e.target;
+  if (name === "title") {
+    setForm((prev) => ({
+      ...prev,
+      title: value,
+      slug: createSlug(value),
+    }));
+    return;
+  }
 
-
-if(name==="title"){
-
-setForm({
-
-...form,
-
-title:value,
-
-slug:createSlug(value),
-
-});
-
-return;
-
+  setForm((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
 }
-
-
-setForm({
-
-...form,
-
-[name]:value,
-
-});
-
-}
-
-
-
 
 async function uploadImage(
-e:React.ChangeEvent<HTMLInputElement>
-){
+  e: React.ChangeEvent<HTMLInputElement>
+) {
+  const file = e.target.files?.[0];
 
-const file = e.target.files?.[0];
+  if (!file) return;
 
+  const formData = new FormData();
+  formData.append("file", file);
 
-if(!file) return;
+  const response = await fetch("/api/admin/upload", {
+    method: "POST",
+    body: formData,
+  });
 
+  const data = await response.json();
 
-
-const formData = new FormData();
-
-
-formData.append(
-"file",
-file
-);
-
-
-
-const response = await fetch(
-"/api/admin/upload",
-{
-method:"POST",
-body:formData,
+  setForm((prev) => ({
+    ...prev,
+    image: data.url,
+  }));
 }
-);
-
-
-
-const data = await response.json();
-
-
-
-setForm({
-
-...form,
-
-image:data.url,
-
-});
-
-
-}
-
-
-
-
 
 async function handleSubmit(
-e:React.FormEvent
-){
+  e: React.FormEvent
+) {
+  e.preventDefault();
 
-e.preventDefault();
+  console.log("FORM BEING SENT:");
+  console.log(form);
 
+  const response = await fetch("/api/admin/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form),
+  });
 
+  const result = await response.json();
 
-const response = await fetch(
+  console.log("SERVER RESPONSE:");
+  console.log(result);
 
-"/api/admin/posts",
-
-{
-
-method:"POST",
-
-headers:{
-
-"Content-Type":"application/json"
-
-},
-
-body:JSON.stringify(form)
-
+  if (response.ok) {
+    router.push("/admin/posts");
+  }
 }
-
-);
-
-
-
-
-if(response.ok){
-
-router.push("/admin/posts");
-
-}
-
-
-}
-
-
-
 
 
 return (
@@ -211,9 +146,6 @@ onSubmit={handleSubmit}
 className="mt-10 max-w-3xl space-y-5"
 
 >
-
-
-
 
 
 <input

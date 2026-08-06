@@ -83,17 +83,13 @@ class:
 
 
 
-useEffect(()=>{
+useEffect(() => {
+  if (!editor) return;
 
-if(!editor) return;
-
-
-editor.commands.setContent(value || "");
-
-
-},[editor, value]);
-
-
+  if (editor.getHTML() !== value) {
+    editor.commands.setContent(value || "", false);
+  }
+}, [editor]);
 
 
 if(!editor){
