@@ -81,29 +81,63 @@ async function uploadImage(
 
   if (!file) return;
 
-  const formData = new FormData();
-  formData.append("file", file);
+  try {
+    const formData = new FormData();
 
-  const response = await fetch("/api/admin/upload", {
-    method: "POST",
-    body: formData,
-  });
+    formData.append("file", file);
 
-  const data = await response.json();
+    const response = await fetch("/api/admin/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-  setForm((prev) => ({
-    ...prev,
-    image: data.url,
-  }));
+    const data = await response.json();
+
+    console.log("IMAGE UPLOAD RESPONSE:", data);
+
+    if (!response.ok) {
+      alert(data.error || "Image upload failed.");
+      return;
+    }
+
+    if (!data.url) {
+      alert("Image uploaded but no image URL was returned.");
+      return;
+    }
+
+    setForm((previous) => ({
+      ...previous,
+      image: data.url,
+    }));
+
+    console.log("IMAGE URL:", data.url);
+
+  } catch (error) {
+    console.error("IMAGE UPLOAD ERROR:", error);
+    alert("Something went wrong while uploading the image.");
+  }
 }
 
-async function handleSubmit(
-  e: React.FormEvent
-) {
+async function handleSubmit(e: React.FormEvent) {
   e.preventDefault();
 
   console.log("FORM BEING SENT:");
   console.log(form);
+
+  if (!form.image) {
+    alert("Please upload an article image before publishing.");
+    return;
+  }
+
+  if (!form.title.trim()) {
+    alert("Please enter an article title.");
+    return;
+  }
+
+  if (!form.content.trim()) {
+    alert("Please enter article content.");
+    return;
+  }
 
   const response = await fetch("/api/admin/posts", {
     method: "POST",
@@ -115,14 +149,15 @@ async function handleSubmit(
 
   const result = await response.json();
 
-  console.log("SERVER RESPONSE:");
-  console.log(result);
+  console.log("SERVER RESPONSE:", result);
 
-  if (response.ok) {
-    router.push("/admin/posts");
+  if (!response.ok) {
+    alert(result.error || "Failed to create article.");
+    return;
   }
-}
 
+  router.push("/admin/posts");
+}
 
 return (
 
@@ -519,7 +554,8 @@ bg-black
 px-6
 py-3
 text-white
-pointer
+cursor-pointer
+hover:bg-gray-500
 "
 
 >

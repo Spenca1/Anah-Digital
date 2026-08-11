@@ -1,99 +1,47 @@
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
 
+export async function POST(request: Request) {
+  try {
+    const formData = await request.formData();
 
-export async function POST(
-request:Request
-){
+    const file = formData.get("file");
 
-try{
+    if (!(file instanceof File)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "No valid file uploaded",
+        },
+        {
+          status: 400,
+        }
+      );
+    }
 
+    const fileName = `blog-images/${Date.now()}-${file.name}`;
 
-const formData = await request.formData();
+    const blob = await put(fileName, file, {
+      access: "public",
+    });
 
+    console.log("BLOB UPLOAD SUCCESS:", blob.url);
 
-const file = formData.get("file") as File;
+    return NextResponse.json({
+      success: true,
+      url: blob.url,
+    });
+  } catch (error) {
+    console.error("BLOB UPLOAD ERROR:", error);
 
-
-if(!file){
-
-return NextResponse.json(
-{
-error:"No file uploaded"
-},
-{
-status:400
-}
-);
-
-}
-
-
-
-const bytes = await file.arrayBuffer();
-
-const buffer = Buffer.from(bytes);
-
-
-
-const uploadDir = path.join(
-process.cwd(),
-"public/uploads"
-);
-
-
-
-if(!fs.existsSync(uploadDir)){
-
-fs.mkdirSync(uploadDir,{
-recursive:true
-});
-
-}
-
-
-
-const fileName =
-`${Date.now()}-${file.name}`;
-
-
-
-const filePath =
-path.join(
-uploadDir,
-fileName
-);
-
-
-
-fs.writeFileSync(
-filePath,
-buffer
-);
-
-
-
-return NextResponse.json({
-
-url:`/uploads/${fileName}`
-
-});
-
-
-}catch(error){
-
-
-return NextResponse.json(
-{
-error:"Upload failed"
-},
-{
-status:500
-}
-);
-
-
-}
-
+    return NextResponse.json(
+      {
+        success: false,
+        error: String(error),
+      },
+      {
+        status: 500,
+      }
+    );
+  }
 }

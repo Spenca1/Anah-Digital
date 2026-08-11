@@ -55,6 +55,16 @@ slug = `${slug}-${counter}`;
 
 }
 
+if (!body.image) {
+  return NextResponse.json(
+    {
+      error: "Featured image is required.",
+    },
+    {
+      status: 400,
+    }
+  );
+}
 
 
 const post = await prisma.post.create({
