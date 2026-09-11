@@ -312,14 +312,11 @@ async function handleSubmit(
             whileInView="show"
             viewport={{ once: true }}
             className="
-            bg-white/80
-            dark:bg-neutral-900/80
             backdrop-blur-xl
             rounded-3xl
             border
             p-8
             shadow-xl
-            backdrop-blur-xl
             "
           >
 
@@ -438,8 +435,8 @@ onChange={(e) => setMessage(e.target.value)}
   transition
   hover:-translate-y-1
   hover:bg-blue-700
-  disabled:cursor-not-allowed
   disabled:opacity-60
+  
   "
 >
   <Send size={18} />
